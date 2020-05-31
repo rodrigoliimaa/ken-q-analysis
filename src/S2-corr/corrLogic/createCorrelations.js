@@ -2,9 +2,9 @@
 
 import store from "../../store";
 import cloneDeep from "lodash/cloneDeep";
-import { getPqmethodCorrelation } from "./getPqmethodCorrelation";
+import { getPqmethodCorrelationSpearman } from "./getPqmethodCorrelation";
 
-export function calculateCorrelations(rawSorts, respondentNames) {
+export async function calculateCorrelations(rawSorts, respondentNames) {
   // controls matrix formation - corrs calculated in "getPqmethodCorrelations"
 
   //
@@ -26,7 +26,7 @@ export function calculateCorrelations(rawSorts, respondentNames) {
   for (var i = 0; i < totalSorts; i++) {
     var pullX = rawSortsCloned[i];
 
-    var correlationValue = getPqmethodCorrelation(
+    var correlationValue = await getPqmethodCorrelationSpearman(
       rawSortsCloned[i],
       rawSortsCloned[i]
     );
@@ -35,7 +35,7 @@ export function calculateCorrelations(rawSorts, respondentNames) {
     correlationTableArrayFormatted[0][0] = correlationValue[1];
 
     for (var k = i; k < totalSorts; k++) {
-      var correlationValue2 = getPqmethodCorrelation(pullX, rawSortsCloned[k]);
+      var correlationValue2 = await getPqmethodCorrelationSpearman(pullX, rawSortsCloned[k]);
 
       correlationTableArray[i][k] = correlationValue2[0];
       correlationTableArrayFormatted[i][k] = correlationValue2[1];

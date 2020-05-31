@@ -6,6 +6,8 @@
              */
 
 import evenRound from "../../Utils/evenRound";
+import Spearman from "spearman-rho";
+
 // import NP from "number-precision";
 
 export function getPqmethodCorrelation(x, y) {
@@ -53,5 +55,14 @@ export function getPqmethodCorrelation(x, y) {
 
   var answer1 = [evenRound(answer, 5), evenRound(answer * 100, 0)];
 
+  return answer1;
+}
+
+export async function getPqmethodCorrelationSpearman(x, y) {
+  const spearman = new Spearman(x, y);
+
+  var value =  await spearman.calc();
+  var answer1 = [evenRound(value, 5), evenRound(value * 100, 0)];
+  
   return answer1;
 }

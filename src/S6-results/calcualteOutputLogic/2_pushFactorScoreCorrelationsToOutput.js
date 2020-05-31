@@ -3,7 +3,7 @@ import store from "../../store";
 import cloneDeep from "lodash/cloneDeep";
 import evenRound from "../../Utils/evenRound";
 
-import { getPqmethodCorrelation } from "../../S2-corr/corrLogic/getPqmethodCorrelation";
+import { getPqmethodCorrelationSpearman } from "../../S2-corr/corrLogic/getPqmethodCorrelation";
 
 const pushFactorScoreCorrelationsToOutput = function(
   sheetNames,
@@ -72,13 +72,13 @@ const pushFactorScoreCorrelationsToOutput = function(
     correlationTableArrayFragment = [];
   }
 
-  function factorScoresCorrelationsHelper(factorScoresCorrelationArray, pullX) {
+  async function factorScoresCorrelationsHelper(factorScoresCorrelationArray, pullX) {
     let correlationHolder,
       correlationHolder2;
     let correlationTableArrayFragment = [];
 
-    factorScoresCorrelationArray.forEach(function(element) {
-      correlationHolder2 = getPqmethodCorrelation(pullX, element);
+    factorScoresCorrelationArray.forEach(async function(element) {
+      correlationHolder2 = getPqmethodCorrelationSpearman(pullX, element);
       correlationHolder = evenRound(correlationHolder2[0], 4);
       correlationTableArrayFragment.push(correlationHolder);
     });
