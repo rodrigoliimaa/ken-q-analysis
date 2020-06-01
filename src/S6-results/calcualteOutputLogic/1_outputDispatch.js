@@ -18,7 +18,7 @@ import pushStandardErrorsDifferencesToOutput from "./2_pushStandardErrorsDiffere
 import pushDistinguishingStatementsToOutput from "./2_pushDistinguishingStatementsToOutput";
 import pushCribSheetsToOutput from "./2_pushCribSheetsToOutput";
 
-const outputDispatch = function() {
+const outputDispatch = async function() {
   // begin output cascade
   let step1 = pushProjectOverviewToOutputArray();
   // returns [sheetNames, output, outputData, sheetNamesXlsx, colSizes]
@@ -56,7 +56,7 @@ const outputDispatch = function() {
   let step10 = pushFactorScoreComparisonRanksTableToOutput(...step9);
 
   // pushFactorScoreCorrelationsToOutputArray(sheetNames, output, outputData, sheetNamesXlsx, colSizes);
-  let step11 = pushFactorScoreCorrelationsToOutput(...step10);
+  let step11 = await pushFactorScoreCorrelationsToOutput(...step10);
 
   // insertFactorsIntoOutputArray(sheetNames, output, analysisOutput, outputData, sheetNamesXlsx, colSizes);
   let step12 = insertFactorsIntoOutput(...step11);

@@ -5,7 +5,7 @@ import evenRound from "../../Utils/evenRound";
 
 import { getPqmethodCorrelationSpearman } from "../../S2-corr/corrLogic/getPqmethodCorrelation";
 
-const pushFactorScoreCorrelationsToOutput = function(
+const pushFactorScoreCorrelationsToOutput = async function(
   sheetNames,
   output,
   outputData,
@@ -64,7 +64,7 @@ const pushFactorScoreCorrelationsToOutput = function(
   let correlationTableArray = [];
   for (let k = 0; k < factorScoresCorrelationArray.length; k++) {
     pullX = factorScoresCorrelationArray[k];
-    correlationTableArrayFragment = factorScoresCorrelationsHelper(
+    correlationTableArrayFragment = await factorScoresCorrelationsHelper(
       factorScoresCorrelationArray,
       pullX
     );
@@ -78,7 +78,7 @@ const pushFactorScoreCorrelationsToOutput = function(
     let correlationTableArrayFragment = [];
 
     factorScoresCorrelationArray.forEach(async function(element) {
-      correlationHolder2 = getPqmethodCorrelationSpearman(pullX, element);
+      correlationHolder2 = await getPqmethodCorrelationSpearman(pullX, element);
       correlationHolder = evenRound(correlationHolder2[0], 4);
       correlationTableArrayFragment.push(correlationHolder);
     });
@@ -88,6 +88,7 @@ const pushFactorScoreCorrelationsToOutput = function(
   // add factor names to first column
   for (let m = 0; m < correlationTableArray.length; m++) {
     let temp8 = userSelectedFactors[m];
+    debugger
     correlationTableArray[m].unshift(temp8);
   }
 

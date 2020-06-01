@@ -42,6 +42,7 @@ const insertFactorsIntoOutput = function(
         ];
 
         // set weights name
+        debugger
         sheetNamesXlsx.push(sheetNamesHolder1[ii].sheetid);
 
         // set weights columns
